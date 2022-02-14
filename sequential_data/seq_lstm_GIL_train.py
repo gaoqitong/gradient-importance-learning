@@ -179,7 +179,7 @@ if __name__ == '__main__':
 
     graph = tf.Graph()
 
-    file_appendix = "MIMIC_LSTM_GIL_" + str(start_learning_rate) + "_" + str(decay_step) + "_" + str(decay_rate) + "_" + str(num_hidden) + "_" + str(actor_lr) + "_" + str(critic_lr)
+    file_appendix = "SEQ_LSTM_GIL_" + str(start_learning_rate) + "_" + str(decay_step) + "_" + str(decay_rate) + "_" + str(num_hidden) + "_" + str(actor_lr) + "_" + str(critic_lr)
 
     def build_net(x, is_training=True, reuse=tf.AUTO_REUSE, graph=graph):
 
@@ -429,7 +429,7 @@ if __name__ == '__main__':
         print ("Testing AUC:", max_auc)
 
         # Record the hyper-parameters tried along with their performances
-        with open("./stats/MIMIC_LSTM_GIL.txt", "a") as myfile:
+        with open("./stats/SEQ_LSTM_GIL.txt", "a") as myfile:
             myfile.write("%.6f\t%i\t%.3f\t%.6f\t%.6f\t%i\t%.6f\t%.6f\t%.6f\n" %(start_learning_rate, decay_step, decay_rate, actor_lr, critic_lr, num_hidden, max_final_acc.eval(), max_auc, max_ap))
 
 

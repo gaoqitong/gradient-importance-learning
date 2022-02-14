@@ -2,7 +2,7 @@
 
 ### Qitong Gao, Dong Wang, Joshua David Amason, Siyang Yuan, Chenyang Tao, Ricardo Henao, Majda Hadziahmetovic, Lawrence Carin, Miroslav Pajic
 
-### https://openreview.net/forum?id=fXHl76nO2AZ
+### Accepted to ICLR '22. Paper can be found at https://openreview.net/forum?id=fXHl76nO2AZ
 
 Contact: qitong.gao@duke.edu
 

@@ -121,7 +121,7 @@ if __name__ == '__main__':
 
     graph = tf.Graph()
 
-    file_appendix = "Ophthalmic_35_missing_MLP_GIL-D_" + str(start_learning_rate) + "_" + str(decay_step) + "_" + str(decay_rate) + "_" + str(actor_lr) + "_" + str(critic_lr)
+    file_appendix = "TAB_MLP_GIL-D_" + str(start_learning_rate) + "_" + str(decay_step) + "_" + str(decay_rate) + "_" + str(actor_lr) + "_" + str(critic_lr)
 
 
     def build_net(x, is_training=True, reuse=tf.AUTO_REUSE, graph=graph):
@@ -356,6 +356,6 @@ if __name__ == '__main__':
 
         print ("Testing Accuracy:", sess.run(max_final_acc))
         print ("Testing AUC:", max_auc)
-        with open("./stats/Ophthalmic_35_missing_GIL-D.txt", "a") as myfile:
+        with open("./stats/TAB_GIL-D.txt", "a") as myfile:
             myfile.write("%.9f\t%i\t%.3f\t%i\t%i\t%.9f\t%.9f\t%.6f\t%.6f\t%.6f\n" %(start_learning_rate, decay_step, decay_rate, weights[0], weights[1], actor_lr, critic_lr, max_final_acc.eval(), max_auc, max_ap))
 
