@@ -8,7 +8,14 @@ def my_static_rnn(cell,
                dtype=None,
                sequence_length=None,
                scope=None):
-  """Creates a recurrent neural network specified by RNNCell `cell`.
+  """
+This is a helper function building on top of tf.nn.static_rnn 
+(tf version 1.15.x) that returns the lstm hidden states
+over all timesteps. Instructions below adopted and modifed from
+ the original implementation. 
+-- Qitong Gao (qitong.gao@duke.edu). Feb, 2022.
+
+Creates a recurrent neural network specified by RNNCell `cell`.
   The simplest form of RNN network generated is:
   ```python
     state = cell.zero_state(...)
@@ -52,6 +59,8 @@ def my_static_rnn(cell,
     - outputs is a length T list of outputs (one for each input), or a nested
       tuple of such elements.
     - state is the final state
+    - cell_states is a length T list of lstm states, with each element corresponding
+      to the lstm state evaluate at that specific timestep
   Raises:
     TypeError: If `cell` is not an instance of RNNCell.
     ValueError: If `inputs` is `None` or an empty list, or if the input depth
