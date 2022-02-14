@@ -6,7 +6,7 @@
 
 Contact: qitong.gao@duke.edu
 
-Codes are tested against the following environmental setup:
+This code package is tested against the following environmental setup:
 ```
 Python 3.7
 tensorflow 1.15.0
