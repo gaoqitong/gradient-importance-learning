@@ -6,14 +6,14 @@
 
 Contact: qitong.gao@duke.edu
 
-Environmental requirements:
+Codes are tested against the following environmental setup:
 ```
-Python 2.7/3.x
+Python 3.7
 tensorflow 1.15.0
-scikit-learn 0.24.0
-pandas 0.24.2
-numpy 1.16.6
-scipy 1.2.1
+scikit-learn 0.24.2
+pandas 1.2.4
+numpy 1.20.2
+scipy 1.7.0
 ```
 
 Here we provided the code for training and evaluating GIL/GIL-D using multivariate tabular and sequential data. Each folder is self-contained and has a seperate readme file introducing how to train, evaluate and load pre-trained checkpoints.
