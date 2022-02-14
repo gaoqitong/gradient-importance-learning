@@ -1,0 +1,7 @@
+tabular_data/data/* filter=lfs diff=lfs merge=lfs -text
+tabular_data/saved_model/* filter=lfs diff=lfs merge=lfs -text
+sequential_data/saved_model/* filter=lfs diff=lfs merge=lfs -text
+tabular_data/saved_model/ophthalmic_35_missing_GIL_CKPT/* filter=lfs diff=lfs merge=lfs -text
+tabular_data/saved_model/ophthalmic_35_missing_GIL-D_CKPT/* filter=lfs diff=lfs merge=lfs -text
+sequential_data/saved_model/MIMIC_LSTM_GIL_CKPT/* filter=lfs diff=lfs merge=lfs -text
+sequential_data/saved_model/MIMIC_LSTM_GIL-D_CKPT/* filter=lfs diff=lfs merge=lfs -text
