@@ -183,7 +183,7 @@ if __name__ == '__main__':
     training_steps = args.training_steps
     batch_size = 128 # must be a multiple of 4
 
-    num_input = 15 
+    num_input = df_shock_train.values.shape[1] 
     timesteps = max_seq_len # timesteps
     num_classes = 2 
 
@@ -226,10 +226,10 @@ if __name__ == '__main__':
 
     with graph.as_default():
 
-        dataset_train = tf.data.Dataset.from_generator(gen_train, (tf.float32, tf.float32, tf.int32), ([batch_size, timesteps, 15],[batch_size, 2],[batch_size, timesteps, 15])).repeat(5).shuffle(10)
+        dataset_train = tf.data.Dataset.from_generator(gen_train, (tf.float32, tf.float32, tf.int32), ([batch_size, timesteps, df_shock_train.values.shape[1]],[batch_size, 2],[batch_size, timesteps, df_shock_train.values.shape[1]])).repeat(5).shuffle(10)
         input_train, label_train, mask_train = dataset_train.make_one_shot_iterator().get_next()
 
-        dataset_test = tf.data.Dataset.from_generator(gen_test, (tf.float32, tf.float32, tf.int32), ([ timesteps, 15],[ 2],[timesteps, 15])).repeat(10000).batch(len(df_shock_test.index.unique())+len(df_non_shock_test.index.unique()))
+        dataset_test = tf.data.Dataset.from_generator(gen_test, (tf.float32, tf.float32, tf.int32), ([ timesteps, df_shock_train.values.shape[1]],[ 2],[timesteps, df_shock_train.values.shape[1]])).repeat(10000).batch(len(df_shock_test.index.unique())+len(df_non_shock_test.index.unique()))
         input_test, label_test, mask_test = dataset_test.make_one_shot_iterator().get_next()
 
         input_train_holder = tf.placeholder(shape=[batch_size, timesteps, num_input], dtype=tf.float32)
@@ -264,8 +264,8 @@ if __name__ == '__main__':
 
         # Apply importance to the gradients calculated from regular SGD solver
 
-        grad_attention = tf.placeholder(shape=[timesteps, batch_size, num_input], dtype=tf.float32)
-        xs_for_grads = tf.multiply(xs, grad_attention)
+        grad_importance = tf.placeholder(shape=[timesteps, batch_size, num_input], dtype=tf.float32)
+        xs_for_grads = tf.multiply(xs, grad_importance)
         W_grads = tf.tensordot(xs_for_grads, grads_i_j_f_o, axes=[[0,1],[0,1]])/batch_size
 
         enumerated_seq_lens = tf.cast(tf.stack([seq_lens, tf.range(tf.shape(seq_lens)[0])], axis=1), tf.int32)
@@ -368,7 +368,7 @@ if __name__ == '__main__':
                 a = actor.predict(s.reshape(-1,num_input*2+num_hidden*2), sess)
                 a = a.reshape(timesteps, batch_size, num_input)
 
-            last_outs, _, kld = sess.run([last_outputs, grads_update_op, train_kld], feed_dict={grad_attention:a, input_train_holder:data_in, label_train_holder:label_in, mask_train_holder:s_mask})
+            last_outs, _, kld = sess.run([last_outputs, grads_update_op, train_kld], feed_dict={grad_importance:a, input_train_holder:data_in, label_train_holder:label_in, mask_train_holder:s_mask})
             acc, score = sess.run([final_accuracy, final_score])
             data_in, label_in, s2_mask = sess.run([input_train, label_train, mask_train])
             s2_1, s2_2 = sess.run([states, outs], feed_dict = {input_train_holder:data_in, label_train_holder:label_in})

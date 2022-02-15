@@ -105,7 +105,7 @@ if __name__ == '__main__':
     training_steps = args.training_steps
     batch_size = 128 # must be a multiple of 4
 
-    num_input = 4101
+    num_input = normal_train.shape[1]
     timesteps = 1 # timesteps
     num_classes = 2 
 
@@ -158,10 +158,10 @@ if __name__ == '__main__':
 
     with graph.as_default():
 
-        dataset_train = tf.data.Dataset.from_generator(gen_train, (tf.float32, tf.float32, tf.int32), ([4101],[2],[4101])).repeat(30000).shuffle(5000).batch(batch_size)
+        dataset_train = tf.data.Dataset.from_generator(gen_train, (tf.float32, tf.float32, tf.int32), ([normal_train.shape[1]],[2],[normal_train.shape[1]])).repeat(30000).shuffle(5000).batch(batch_size)
         input_train, label_train, mask_train = dataset_train.make_one_shot_iterator().get_next()
 
-        dataset_test = tf.data.Dataset.from_generator(gen_test, (tf.float32, tf.float32, tf.int32), ([4101],[ 2],[4101])).repeat(30000).batch(data_test.shape[0])
+        dataset_test = tf.data.Dataset.from_generator(gen_test, (tf.float32, tf.float32, tf.int32), ([normal_train.shape[1]],[ 2],[normal_train.shape[1]])).repeat(30000).batch(data_test.shape[0])
         input_test, label_test, mask_test = dataset_test.make_one_shot_iterator().get_next()
 
         input_train_holder = tf.placeholder(shape=[batch_size, num_input*timesteps], dtype=tf.float32)
@@ -189,8 +189,8 @@ if __name__ == '__main__':
 
         # Apply importance to the gradients calculated from regular SGD solver
 
-        grad_attention = tf.placeholder(shape=[batch_size, num_input*timesteps], dtype=tf.float32)
-        grads[0] = grads[0]*grad_attention[...,tf.newaxis]
+        grad_importance = tf.placeholder(shape=[batch_size, num_input*timesteps], dtype=tf.float32)
+        grads[0] = grads[0]*grad_importance[...,tf.newaxis]
 
         grads = [tf.reduce_mean(g,axis=0) for g in grads]
         
@@ -265,7 +265,7 @@ if __name__ == '__main__':
             else:
                 a = actor.predict(s, sess)
 
-            _, kld, test_kld = sess.run([grads_update_op, train_kld, final_kld], feed_dict={grad_attention:a, input_train_holder:data_in, label_train_holder:label_in, mask_train_holder:s_mask})
+            _, kld, test_kld = sess.run([grads_update_op, train_kld, final_kld], feed_dict={grad_importance:a, input_train_holder:data_in, label_train_holder:label_in, mask_train_holder:s_mask})
             acc = sess.run([final_accuracy])
             data_in, label_in, s2_mask = sess.run([input_train, label_train, mask_train])
             s2_1, s2_2 = sess.run([logits, feature], feed_dict = {input_train_holder:data_in, label_train_holder:label_in})

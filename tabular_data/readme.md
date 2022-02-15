@@ -5,6 +5,15 @@
 
 Training/testing data should be stored, under the `data` folder, as numpy matrices with dimensions `[N, d]`, where `N` is the number of samples and `d` is the dimension of each sample.
 
+Specifically, each file only corresponds to data with the same labels used either for training or testing. For example, as the 4 files provided under `data` folder, i.e.,
+
+```
+normal_train_all_35_missing.txt -- data with label 0 and will be used for training
+abnormal_train_all_35_missing.txt -- data with label 1 and will be used for training
+normal_test_all_35_missing.txt -- data with label 0 and will be used for testing
+abnormal_test_all_35_missing.txt -- data with label 1 and will be used for testing
+```
+
 
 ## For  GIL
 

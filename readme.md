@@ -6,6 +6,25 @@
 
 Contact: qitong.gao@duke.edu
 
+----------------------------------------------------------------------------------------
+
+***ATTENTION***
+
+**Some of the data and checkpoints we uploaded require to be downloaded with Git Large File Storage, i.e., `git-lfs`.**
+
+To install `git-lfs`, follow the instructions on https://github.com/git-lfs/git-lfs.
+
+Once it is installed, make sure to clone this repository by running
+
+`git lfs clone https://github.com/gaoqitong/gradient-importance-learning.git`
+
+or
+
+`git lfs clone git@github.com:gaoqitong/gradient-importance-learning.git`
+
+
+----------------------------------------------------------------------------------------
+
 This code package is tested against the following environmental setup:
 ```
 Python 3.7

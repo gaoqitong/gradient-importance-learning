@@ -8,7 +8,16 @@ The data used for training/testing (stored under `data` folder) is processed, de
 
 **To ensure both training and evaluation scripts can be executed, the training data csv's under the `data` folder is filled with all zero's.**
 
-The training/testing csv's are formulated as below. Each row is indexed by the patient ID and should contain records of all attributes for a single timestep for a single patient. For each patient, the recordings over multiple timesteps should follow increasing order over the time axis. **No** spaces should to be placed in between patients. 
+Each csv only corresponds to data with the same labels used either for training or testing. For example, as the 4 csv's provided under `data` folder, i.e.,
+
+```
+df_shock_train.csv -- data with label 0 and will be used for training
+df_non_shock_train.csv -- data with label 1 and will be used for training
+df_shock_test.csv -- data with label 0 and will be used for testing
+df_non_shock_test.csv -- data with label 1 and will be used for testing
+```
+
+Each csv file is formulated as below. Each row is indexed by the patient ID and should contain records of all attributes for a single timestep for a single patient. For each patient, the recordings over multiple timesteps should follow increasing order over the time axis. **No** spaces should to be placed in between patients. 
 
 |                      | Attr. #1  | Attr. #2 | Attr. #3 | ... |
 |----------------------|-----------|----------|----------|-----|
