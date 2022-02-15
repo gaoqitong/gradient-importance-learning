@@ -1,8 +1,8 @@
 # Gradient Importance Learning for Incomplete Observations
 
-### Qitong Gao, Dong Wang, Joshua David Amason, Siyang Yuan, Chenyang Tao, Ricardo Henao, Majda Hadziahmetovic, Lawrence Carin, Miroslav Pajic
+Qitong Gao, Dong Wang, Joshua David Amason, Siyang Yuan, Chenyang Tao, Ricardo Henao, Majda Hadziahmetovic, Lawrence Carin, Miroslav Pajic
 
-### Accepted to ICLR '22. Paper can be found at https://openreview.net/forum?id=fXHl76nO2AZ
+Paper can be found at https://openreview.net/forum?id=fXHl76nO2AZ. Accepted to ICLR '22. 
 
 Contact: qitong.gao@duke.edu
 
